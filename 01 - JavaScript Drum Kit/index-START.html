@@ -61,9 +61,12 @@
 
   <script>
     window.addEventListener('keydown', function (p) {
-      console.log(p.keyCode)
       const audio = document.querySelector(`audio[data-key="${p.keyCode}"]`)
-      console.log("p.keycode / filePath:", p.keyCode + " / " + audio.src)
+
+      if (!audio) return // stop function if no corresponding audio
+
+      audio.currentTime = 0 // eliminate audio lag
+      audio.play()
     })
   </script>
 
