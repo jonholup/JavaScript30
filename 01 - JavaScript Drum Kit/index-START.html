@@ -60,14 +60,25 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
   <script>
+    function removeTransition(p) {
+      if (p.propertyName !== 'transform') return // skip if it's not a transform
+      this.classList.remove('playing')
+    }
+
     window.addEventListener('keydown', function (p) {
       const audio = document.querySelector(`audio[data-key="${p.keyCode}"]`)
+      const key = document.querySelector(`.key[data-key="${p.keyCode}"]`)
+      console.log(key)
 
       if (!audio) return // stop function if no corresponding audio
 
       audio.currentTime = 0 // eliminate audio lag
       audio.play()
+      key.classList.add('playing')
     })
+
+    const keys = document.querySelectorAll('.key')
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition))
   </script>
 
 
