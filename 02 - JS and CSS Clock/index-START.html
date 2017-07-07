@@ -96,7 +96,7 @@
       minuteHand.style.transform = `rotate(${minuteHandDegrees}deg)`
       hourHand.style.transform = `rotate(${hourHandDegrees}deg)`
 
-      // avoid glitch when secondHand hits 12 o'clock
+      // avoiding glitch when secondHand hits 12 o'clock
       if (secondHandDegrees === 90) {
         allHands.forEach(hand => hand.style.transition = 'none')
       } else {
