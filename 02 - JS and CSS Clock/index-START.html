@@ -69,10 +69,42 @@
       transition: all 0.05s;
       transition-timing-function: cubic-bezier(0, 1.93, 0.9, 1.56);
     }
+
+    .hour-hand {
+      background: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 1) 70%, rgba(117, 134, 153, 0) 53%, rgba(117, 134, 153, 0) 100%);
+      z-index: 99;
+    }
   </style>
 
   <script>
+    const secondHand = document.querySelector('.second-hand')
+    const minuteHand = document.querySelector('.min-hand')
+    const hourHand = document.querySelector('.hour-hand')
+    const allHands = document.querySelectorAll('.hand')
 
+    function findDate() {
+      const now = new Date()
+      const seconds = now.getSeconds()
+      const minutes = now.getMinutes()
+      const hour = now.getHours()
+
+      const secondHandDegrees = ((seconds / 60) * 360) + 90
+      const minuteHandDegrees = ((minutes / 60) * 360) + ((seconds / 60) * 6) + 90
+      const hourHandDegrees = ((hour / 12) * 360) + ((minutes / 60) * 30) + 90
+
+      secondHand.style.transform = `rotate(${secondHandDegrees}deg)`
+      minuteHand.style.transform = `rotate(${minuteHandDegrees}deg)`
+      hourHand.style.transform = `rotate(${hourHandDegrees}deg)`
+
+      // avoid glitch when secondHand hits 12 o'clock
+      if (secondHandDegrees === 90) {
+        allHands.forEach(hand => hand.style.transition = 'none')
+      } else {
+        allHands.forEach(hand => hand.style.transition = '')
+      }
+    }
+    setInterval(findDate, 1000)
+    findDate()
   </script>
 </body>
 
