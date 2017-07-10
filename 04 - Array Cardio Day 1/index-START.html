@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Array Cardio 💪</title>
 </head>
+
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
   <script>
@@ -31,29 +33,81 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const inventorsOfTheSixteenthCenturyArray = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600)
+
+    console.log('1. 16th Century Inventors:')
+    console.table(inventorsOfTheSixteenthCenturyArray)
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    const inventorNameArray = inventors.map(inventor => inventor.first + ' ' + inventor.last)
+
+    console.log('2. Array containing inventor\'s full names:', inventorNameArray)
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
+    const inventorsSortedByBirthdate = inventors.sort((a, b) => a.year - b.year)
+
+    console.log('3. Inventors sorted oldest to youngest:')
+    console.table(inventorsSortedByBirthdate)
+
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
 
+    const cumulativeAge = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year)
+    }, 0)
+
+    console.log('4. Cumulative age of inventors:', cumulativeAge)
+
     // 5. Sort the inventors by years lived
+
+    const inventorsSortedByAge = inventors.sort(function (a, b) {
+      const lastInventor = a.passed - a.year
+      const nextInventor = b.passed - b.year
+      return lastInventor > nextInventor ? -1 : 1
+    })
+    console.log('5. Inventors sorted by age:')
+    console.table(inventorsSortedByAge);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    // const category = document.querySelector('.mw-category')  // div class containing desired content
+    // const links = Array.from(category.querySelectorAll('a'))
+    // const boulevardsContainingDE = links
+    //   .map(link => link.textContent)
+    //   .filter(streetName => streetName.includes('de'))
+
+    // console.log('6. List of Boulevards in Paris containing "de" (error generated if not at specified link):', boulevardsContainingDE)
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
+    const peopleSortedAlphabetically = people.sort((last, next) => {
+      const [aLast, aFirst] = last.split(', ');
+      const [bLast, bFirst] = next.split(', ');
+      return aLast > bLast ? 1 : -1;
+    });
+
+    console.log('7. People Array sorted alphabetically:')
+    console.table(peopleSortedAlphabetically);
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
 
+    const transportation = data.reduce(function (obj, type) {
+      if (!obj[type]) {
+        obj[type] = 0;
+      }
+      obj[type]++;
+      return obj;
+    }, {});
+
+    console.log('8. How many types of transport within given array:', transportation);
   </script>
 </body>
+
 </html>
