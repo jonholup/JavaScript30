@@ -22,11 +22,11 @@
     const input = document.querySelector('.search')
     const suggestions = document.querySelector('.suggestions')
 
-    fetch(endpoint).then(blob => blob.json())
-      .then(data => cities.push(...data)) //iterating through json with spread operator
-
     input.addEventListener('keyup', displayMatches)
     input.addEventListener('change', displayMatches)
+
+    fetch(endpoint).then(blob => blob.json())
+      .then(data => cities.push(...data)) //iterating through json with spread operator
 
     function findMatches(wordToMatch, cities) {
       return cities.filter(place => {
